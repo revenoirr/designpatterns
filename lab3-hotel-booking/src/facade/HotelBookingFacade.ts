@@ -1,5 +1,3 @@
-// src/hotel/facade/HotelBookingFacade.ts
-
 import { Room, RoomType } from '../entities/Room';
 import { Guest } from '../entities/Guest';
 import { Booking } from '../entities/Booking';

@@ -19,7 +19,7 @@ function demonstrateHotelBookingSystem(): void {
   hotel.checkAvailability();
   hotel.checkAvailability(RoomType.SUITE);
 
-  console.log('📌 Step 4: Make Bookings');
+  console.log('Step 4: Make Bookings');
   const checkIn = new Date('2025-02-01');
   const checkOut = new Date('2025-02-05');
 
