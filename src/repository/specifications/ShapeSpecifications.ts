@@ -1,5 +1,3 @@
-// src/repository/specifications/ShapeSpecifications.ts
-
 import { CompositeSpecification } from './Specification';
 import { Shape } from '../../entities/Shape';
 import { Rectangle } from '../../entities/Rectangle';
@@ -7,9 +5,6 @@ import { Tetrahedron } from '../../entities/Tetrahedron';
 import { Point } from '../../entities/Point';
 import { Warehouse } from '../../warehouse/Warehouse';
 
-/**
- * Поиск по ID
- */
 export class IdSpecification extends CompositeSpecification<Shape> {
   constructor(private id: string) {
     super();
@@ -20,9 +15,6 @@ export class IdSpecification extends CompositeSpecification<Shape> {
   }
 }
 
-/**
- * Поиск по имени (содержит подстроку)
- */
 export class NameContainsSpecification extends CompositeSpecification<Shape> {
   constructor(private name: string) {
     super();
@@ -33,9 +25,6 @@ export class NameContainsSpecification extends CompositeSpecification<Shape> {
   }
 }
 
-/**
- * Поиск фигур в первом квадранте (все точки имеют x > 0, y > 0)
- */
 export class FirstQuadrantSpecification extends CompositeSpecification<Shape> {
   isSatisfiedBy(shape: Shape): boolean {
     const points = this.getPoints(shape);
@@ -53,9 +42,6 @@ export class FirstQuadrantSpecification extends CompositeSpecification<Shape> {
   }
 }
 
-/**
- * Поиск по площади в диапазоне
- */
 export class AreaRangeSpecification extends CompositeSpecification<Shape> {
   constructor(
     private minArea: number,
@@ -76,9 +62,6 @@ export class AreaRangeSpecification extends CompositeSpecification<Shape> {
   }
 }
 
-/**
- * Поиск по объему в диапазоне
- */
 export class VolumeRangeSpecification extends CompositeSpecification<Shape> {
   constructor(
     private minVolume: number,
@@ -99,9 +82,6 @@ export class VolumeRangeSpecification extends CompositeSpecification<Shape> {
   }
 }
 
-/**
- * Поиск по периметру в диапазоне
- */
 export class PerimeterRangeSpecification extends CompositeSpecification<Shape> {
   constructor(
     private minPerimeter: number,
@@ -122,9 +102,6 @@ export class PerimeterRangeSpecification extends CompositeSpecification<Shape> {
   }
 }
 
-/**
- * Поиск фигур на расстоянии от начала координат
- */
 export class DistanceFromOriginSpecification extends CompositeSpecification<Shape> {
   constructor(
     private minDistance: number,
@@ -136,7 +113,6 @@ export class DistanceFromOriginSpecification extends CompositeSpecification<Shap
   isSatisfiedBy(shape: Shape): boolean {
     const points = this.getPoints(shape);
 
-    // Проверяем, что хотя бы одна точка в диапазоне
     return points.some((p) => {
       const distance = Math.sqrt(p.x ** 2 + p.y ** 2 + p.z ** 2);
       return distance >= this.minDistance && distance <= this.maxDistance;
@@ -154,9 +130,6 @@ export class DistanceFromOriginSpecification extends CompositeSpecification<Shap
   }
 }
 
-/**
- * Поиск по типу фигуры
- */
 export class ShapeTypeSpecification<T extends Shape = Shape> extends CompositeSpecification<Shape> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   constructor(private shapeType: new (...args: any[]) => T) {
@@ -168,9 +141,6 @@ export class ShapeTypeSpecification<T extends Shape = Shape> extends CompositeSp
   }
 }
 
-/**
- * Поиск по координате X первой точки
- */
 export class FirstPointXSpecification extends CompositeSpecification<Shape> {
   constructor(
     private minX: number,
@@ -200,9 +170,6 @@ export class FirstPointXSpecification extends CompositeSpecification<Shape> {
   }
 }
 
-/**
- * Поиск по coordinate Y первой точки
- */
 export class FirstPointYSpecification extends CompositeSpecification<Shape> {
   constructor(
     private minY: number,

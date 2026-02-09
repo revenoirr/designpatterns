@@ -1,5 +1,3 @@
-// src/utils/Logger.ts
-
 import { writeFileSync, appendFileSync, existsSync, mkdirSync } from 'fs';
 import { join } from 'path';
 
@@ -26,7 +24,7 @@ class SimpleLogger {
     try {
       appendFileSync(this.logFilePath, formattedMessage + '\n', 'utf8');
     } catch (error) {
-      // Игнорируем ошибки записи в файл
+      // ignore
     }
   }
 
