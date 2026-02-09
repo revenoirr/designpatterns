@@ -1,5 +1,3 @@
-// src/validators/RectangleValidator.ts
-
 import { Point } from '../entities/Point';
 import { ValidationException } from '../exceptions/ValidationException';
 

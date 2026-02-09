@@ -1,28 +1,18 @@
-// src/services/RectangleService.ts
-
 import { Rectangle } from '../entities/Rectangle';
 import { Point } from '../entities/Point';
 
-/**
- * Сервис с бизнес-логикой для прямоугольника
- */
+
 export class RectangleService {
-  /**
-   * Вычисление площади прямоугольника
-   */
+
   static calculateArea(rectangle: Rectangle): number {
     const points = rectangle.getPoints();
 
-    // Вычисляем длины сторон
     const side1 = this.distance(points[0], points[1]);
     const side2 = this.distance(points[1], points[2]);
 
     return side1 * side2;
   }
 
-  /**
-   * Вычисление периметра прямоугольника
-   */
   static calculatePerimeter(rectangle: Rectangle): number {
     const points = rectangle.getPoints();
 
@@ -32,13 +22,9 @@ export class RectangleService {
     return 2 * (side1 + side2);
   }
 
-  /**
-   * Проверка, является ли четырехугольник выпуклым
-   */
   static isConvex(rectangle: Rectangle): boolean {
     const points = rectangle.getPoints();
 
-    // Для прямоугольника проверяем знак векторного произведения
     let sign = 0;
 
     for (let i = 0; i < 4; i += 1) {
@@ -64,9 +50,6 @@ export class RectangleService {
     return true;
   }
 
-  /**
-   * Проверка, является ли прямоугольник квадратом
-   */
   static isSquare(rectangle: Rectangle): boolean {
     const points = rectangle.getPoints();
     const EPSILON = 1e-10;
@@ -77,14 +60,10 @@ export class RectangleService {
     return Math.abs(side1 - side2) < EPSILON;
   }
 
-  /**
-   * Проверка, является ли четырехугольник ромбом
-   */
   static isRhombus(rectangle: Rectangle): boolean {
     const points = rectangle.getPoints();
     const EPSILON = 1e-10;
 
-    // В ромбе все стороны равны
     const side1 = this.distance(points[0], points[1]);
     const side2 = this.distance(points[1], points[2]);
     const side3 = this.distance(points[2], points[3]);
@@ -97,39 +76,25 @@ export class RectangleService {
     );
   }
 
-  /**
-   * Проверка, является ли четырехугольник трапецией
-   */
   static isTrapezoid(rectangle: Rectangle): boolean {
     const points = rectangle.getPoints();
 
-    // Проверяем параллельность противоположных сторон
     const parallel1 = this.areParallel(points[0], points[1], points[2], points[3]);
     const parallel2 = this.areParallel(points[1], points[2], points[3], points[0]);
 
-    // Трапеция имеет хотя бы одну пару параллельных сторон
     return parallel1 || parallel2;
   }
 
-  /**
-   * Вычисление расстояния между двумя точками
-   */
   private static distance(p1: Point, p2: Point): number {
     return Math.sqrt(
       (p2.x - p1.x) ** 2 + (p2.y - p1.y) ** 2,
     );
   }
 
-  /**
-   * Векторное произведение для трех точек
-   */
   private static crossProduct(p1: Point, p2: Point, p3: Point): number {
     return (p2.x - p1.x) * (p3.y - p1.y) - (p2.y - p1.y) * (p3.x - p1.x);
   }
 
-  /**
-   * Проверка параллельности двух отрезков
-   */
   private static areParallel(p1: Point, p2: Point, p3: Point, p4: Point): boolean {
     const EPSILON = 1e-10;
 
@@ -138,7 +103,6 @@ export class RectangleService {
     const dx2 = p4.x - p3.x;
     const dy2 = p4.y - p3.y;
 
-    // Векторы параллельны, если их векторное произведение равно 0
     const crossProduct = dx1 * dy2 - dy1 * dx2;
 
     return Math.abs(crossProduct) < EPSILON;

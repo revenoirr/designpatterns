@@ -1,17 +1,10 @@
-// src/utils/FileReader.ts
-
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import { FileReadException } from '../exceptions/FileReadException';
 import { logger } from './Logger';
 
-/**
- * Utility for reading files
- */
 export class FileReader {
-  /**
-   * Read file line by line
-   */
+
   static readLines(relativePath: string): string[] {
     try {
       const fullPath = join(process.cwd(), relativePath);

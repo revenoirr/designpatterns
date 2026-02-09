@@ -1,15 +1,8 @@
-// src/services/TetrahedronService.ts
-
 import { Tetrahedron } from '../entities/Tetrahedron';
 import { Point } from '../entities/Point';
 
-/**
- * Сервис с бизнес-логикой для тетраэдра
- */
 export class TetrahedronService {
-  /**
-   * Вычисление объема тетраэдра
-   */
+
   static calculateVolume(tetrahedron: Tetrahedron): number {
     const vertices = tetrahedron.getVertices();
     return this.volumeFromPoints(
@@ -20,13 +13,9 @@ export class TetrahedronService {
     );
   }
 
-  /**
-   * Вычисление площади поверхности тетраэдра
-   */
   static calculateSurfaceArea(tetrahedron: Tetrahedron): number {
     const vertices = tetrahedron.getVertices();
 
-    // Площадь = сумма площадей четырех треугольных граней
     const area1 = this.triangleArea(vertices[0], vertices[1], vertices[2]);
     const area2 = this.triangleArea(vertices[0], vertices[1], vertices[3]);
     const area3 = this.triangleArea(vertices[0], vertices[2], vertices[3]);
@@ -35,27 +24,18 @@ export class TetrahedronService {
     return area1 + area2 + area3 + area4;
   }
 
-  /**
-   * Соотношение объемов при рассечении координатной плоскостью
-   * planeType: 'xy', 'xz', 'yz'
-   */
   static calculateVolumeRatio(
     tetrahedron: Tetrahedron,
     _planeType: 'xy' | 'xz' | 'yz',
   ): { upper: number; lower: number } {
     const totalVolume = this.calculateVolume(tetrahedron);
 
-    // Упрощенное вычисление - для полной реализации нужна более сложная геометрия
-    // Здесь возвращаем примерное соотношение
     const upperVolume = totalVolume / 2;
     const lowerVolume = totalVolume / 2;
 
     return { upper: upperVolume, lower: lowerVolume };
   }
 
-  /**
-   * Проверка, находится ли основание на координатной плоскости
-   */
   static isBaseOnCoordinatePlane(
     tetrahedron: Tetrahedron,
     planeType: 'xy' | 'xz' | 'yz',
@@ -63,7 +43,6 @@ export class TetrahedronService {
     const vertices = tetrahedron.getVertices();
     const EPSILON = 1e-10;
 
-    // Проверяем, лежат ли три вершины в одной координатной плоскости
     let count = 0;
 
     for (let i = 0; i < 4; i += 1) {
@@ -89,13 +68,9 @@ export class TetrahedronService {
       }
     }
 
-    // Основание на плоскости, если три вершины лежат на ней
     return count === 3;
   }
 
-  /**
-   * Вычисление объема тетраэдра по четырем точкам
-   */
   private static volumeFromPoints(
     v1: Point,
     v2: Point,
@@ -121,9 +96,6 @@ export class TetrahedronService {
     return Math.abs(scalarTripleProduct) / 6;
   }
 
-  /**
-   * Площадь треугольника по трем точкам (формула Герона)
-   */
   private static triangleArea(p1: Point, p2: Point, p3: Point): number {
     const a = this.distance3D(p1, p2);
     const b = this.distance3D(p2, p3);
@@ -133,9 +105,6 @@ export class TetrahedronService {
     return Math.sqrt(s * (s - a) * (s - b) * (s - c));
   }
 
-  /**
-   * Расстояние между точками в 3D
-   */
   private static distance3D(p1: Point, p2: Point): number {
     return Math.sqrt(
       (p2.x - p1.x) ** 2

@@ -1,12 +1,6 @@
-// src/entities/Tetrahedron.ts
-
 import { Point } from './Point';
 import { Shape } from './Shape';
 
-/**
- * Класс, представляющий тетраэдр (4 точки в 3D пространстве)
- * Entity-класс без бизнес-логики
- */
 export class Tetrahedron extends Shape {
   private readonly _vertex1: Point;
   private readonly _vertex2: Point;
